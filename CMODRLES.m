@@ -25,7 +25,7 @@ function main(Algorithm, Problem)
     MinAngle = mean(min(AngleW,[],2))/2;
 
     %% Main loop 
-    while Algorithm.NotTerminated2(MP,[]) 
+    while Algorithm.NotTerminated(MP) 
  
         %% Parent selection and offspring generation 
         Zmin = min([MP.objs; AP.objs; DP.objs], [], 1); 
