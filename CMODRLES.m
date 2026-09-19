@@ -47,10 +47,10 @@ function main(Algorithm, Problem)
         % MP: SPEA2-CDP 
         [MP, FitnessMP] = EnviromentSelect1([MP, O1,O2, O3], N); 
  
-        % AP: SPEA2 
+        % AP: Tchebycheff  
         [AP,FitnessAP,ZAP] = EnviromentSelect2(AP, [O1, O2, O3], W, ZAP, nr); 
  
-        % DP: W + epsilon-relaxed SPEA2-CDP
+        % DP: W + SPEA2-CDP
         [DP, FitnessDP] = EnviromentSelect3([DP, O1, O2, O3], N, MinAngle, W); 
 
     end 
