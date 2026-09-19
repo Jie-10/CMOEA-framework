@@ -4,9 +4,7 @@ function [Population,Fitness] = EnviromentSelect3(Population,N,MinAngle,W)
     %% Basic data
     Obj  = Population.objs;
     Con  = Population.cons;
-
     NumQ = length(Population);
-    NW   = size(W,1);
 
     %% Calculate cosine similarity between solutions and reference vectors
     CosQW = 1 - pdist2(Obj,W,'cosine');
@@ -30,7 +28,7 @@ function [Population,Fitness] = EnviromentSelect3(Population,N,MinAngle,W)
     selected      = false(1,NumQ);
     selectedCount = 0;
 
-    for i = 1:NW
+    for i = 1:N
 
         if selectedCount >= N
             break;
@@ -65,35 +63,10 @@ function [Population,Fitness] = EnviromentSelect3(Population,N,MinAngle,W)
 
         %% Save selected solution
         selectedCount = selectedCount + 1;
-
         selectedIndex(selectedCount)   = x;
         selectedFitness(selectedCount) = FitnessAll(x);
 
         selected(x) = true;
-    end
-
-    if selectedCount < N
-
-        R = find(~selected);
-
-        if ~isempty(R)
-
-            %% Sort remaining solutions according to fitness
-            [~,Rank] = sort(FitnessAll(R),'ascend');
-
-            %% Number of solutions still required
-            Need = min(N-selectedCount,length(R));
-
-            %% Select the best remaining solutions
-            Add = R(Rank(1:Need));
-
-            selectedIndex(selectedCount+1:selectedCount+Need) = Add;
-
-            selectedFitness(selectedCount+1:selectedCount+Need) = ...
-                FitnessAll(Add);
-
-            selectedCount = selectedCount + Need;
-        end
     end
 
     %% Output
